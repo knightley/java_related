@@ -1,0 +1,1 @@
+add index for table in database can improve the speed of query
