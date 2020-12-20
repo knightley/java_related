@@ -1,0 +1,13 @@
+启动和停止Java程序:
+
+使用mvn clean install -DskipTests命令构建工程，然后将target目录下的jar拷贝到服务器端，运行nohup java -jar demo-0.0.1-SNAPSHOT.jar &就完成工程部署了。
+如果要停止服务，可以通过ps -aux | grep java 查找java进程，并获得demo服务的PID，然后kill掉这个进程。
+另一个办法是在启动后将进程号存入文件，在停止时kill该进程号。示例如下。
+$ nohup java -jar demo-0.0.1-SNAPSHOT.jar --server.port=18081 &
+$ echo $! > demo@18081.pid
+
+$ curl :18081/hi
+["hello spring boot", "hello micro services"]
+
+$ kill -9 $(cat demo@18081.pid)
+[1] + 9835 killed nohup java -jar demo-0.0.1-SNAPSHOT.jar --server.port=18081
